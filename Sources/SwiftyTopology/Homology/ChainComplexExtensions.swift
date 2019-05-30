@@ -1,5 +1,5 @@
 //
-//  GeometricComplexExtensions.swift
+//  AbstractComplexExtensions.swift
 //  SwiftyMath
 //
 //  Created by Taketo Sano on 2018/02/10.
@@ -10,7 +10,7 @@ import Foundation
 import SwiftyMath
 import SwiftyHomology
 
-public extension GeometricComplex {
+public extension AbstractComplex {
     public func chainComplex<R: Ring>(relativeTo L: Self? = nil, _ type: R.Type) -> ChainComplex<Cell, R> {
         if let L = L { // relative: (K, L)
             return _chainComplex(relativeTo: L, type)
