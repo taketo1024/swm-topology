@@ -139,7 +139,7 @@ public struct Simplex: AbstractCell, Comparable {
     }
 }
 
-public extension Vertex {
+extension Vertex {
     public func join(_ s: Simplex) -> Simplex {
         return Simplex([self] + s.vertices)
     }

@@ -9,11 +9,11 @@
 import Foundation
 import SwiftyMath
 
-public protocol AbstractCell: FreeModuleBasis {
+public protocol AbstractCell: FreeModuleGenerator {
     var dim: Int { get }
     func boundary<R: Ring>(_ type: R.Type) -> FreeModule<Self, R>
 }
 
-public extension AbstractCell {
+extension AbstractCell {
     public var degree: Int { return dim }
 }

@@ -10,7 +10,7 @@ import Foundation
 import SwiftyMath
 import SwiftyHomology
 
-public extension AbstractComplex {
+extension AbstractComplex {
     public func chainComplex<R: Ring>(relativeTo L: Self? = nil, _ type: R.Type) -> ChainComplex<Cell, R> {
         if let L = L { // relative: (K, L)
             return _chainComplex(relativeTo: L, type)
@@ -24,8 +24,8 @@ public extension AbstractComplex {
         let name = "C(\(self.name); \(R.symbol))"
         let gens = validDims.map { i in cells(ofDim: i) }
         let base = C.Base(name: name, generators: gens.toDictionary())
-        let d = C.Differential.uniform(degree: -1) { (cell: Cell) in
-            cell.boundary(R.self)
+        let d = C.Differential(degree: -1) { _ in
+            ModuleHom.linearlyExtend{ cell in cell.boundary(R.self) }
         }
         return C(base: base, differential: d)
     }
@@ -36,10 +36,11 @@ public extension AbstractComplex {
         let gens = validDims.map { i in cells(ofDim: i).subtract(L.cells(ofDim: i)) }
         let base = C.Base(name: name, generators: gens.toDictionary())
         let d = C.Differential(degree: -1) { i in
-            FreeModuleHom { (cell: Cell) in
-                cell.boundary(R.self).map { (cell, r) in
-                    (i > 0 && gens[i - 1].contains(cell)) ? r * .wrap(cell) : .zero
-                }
+            let restr = ModuleEnd<FreeModule<Cell, R>>.linearlyExtend{ cell in
+                (i > 0 && gens[i - 1].contains(cell)) ? .wrap(cell) : .zero
+            }
+            return ModuleHom.linearlyExtend { (cell: Cell) in
+                restr.applied(to: .wrap(cell))
             }
         }
         return C(base: base, differential: d)

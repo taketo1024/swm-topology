@@ -10,11 +10,14 @@ import Foundation
 import SwiftyMath
 import SwiftyHomology
 
-public extension AbstractComplexMap {
+extension AbstractComplexMap {
     public func asChainMap<R>(_ type: R.Type) -> ChainMap<Complex.Cell, Complex.Cell, R> {
-        return ChainMap.uniform(degree: 0) { (cell: Complex.Cell) in
-            let t = self.applied(to: cell)
-            return (cell.dim == t.dim) ? .wrap(t) : .zero
+        return ChainMap(degree: 0) { _ in
+            ModuleHom.linearlyExtend {
+                (cell: Complex.Cell) in
+                let t = self.applied(to: cell)
+                return (cell.dim == t.dim) ? .wrap(t) : .zero
+            }
         }
     }
 }

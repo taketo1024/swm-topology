@@ -10,7 +10,7 @@ import Foundation
 import SwiftyMath
 import SwiftyHomology
 
-public extension SimplicialComplex {
+extension SimplicialComplex {
     
     //             i         j
     //   0 -> CA  --->  CX  ---> CXA -> 0  (exact)
@@ -25,8 +25,8 @@ public extension SimplicialComplex {
         let CXA = X.chainComplex(relativeTo: A, R.self)
         
         let i = SimplicialMap.inclusion(from: A, to: X).asChainMap(R.self)
-        let j = M.uniform(degree:  0) { (s: Simplex) in !A.contains(s) ? .wrap(s) : .zero }
-        let d = M.uniform(degree: -1) { (s: Simplex) in s.boundary(R.self) }
+        let j = M(degree:  0) { _ in ModuleEnd.linearlyExtend{ s in !A.contains(s) ? .wrap(s) : .zero } }
+        let d = M(degree: -1) { _ in ModuleEnd.linearlyExtend{ s in s.boundary(R.self) } }
         
         return ChainShortExactSequence(CA, i, CX, j, CXA, d)
     }

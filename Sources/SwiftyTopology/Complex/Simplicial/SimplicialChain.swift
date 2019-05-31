@@ -10,7 +10,7 @@ import Foundation
 import SwiftyMath
 
 public typealias SimplicialChain<R: Ring> = FreeModule<Simplex, R>
-public extension SimplicialChain where A == Simplex {
+extension SimplicialChain where A == Simplex {
     public func boundary() -> SimplicialChain<R> {
         return self.elements.reduce(SimplicialChain<R>.zero) { (res, next) -> SimplicialChain<R> in
             let (s, r) = next
@@ -20,7 +20,7 @@ public extension SimplicialChain where A == Simplex {
 }
 
 public typealias SimplicialCochain<R: Ring> = FreeModule<Dual<Simplex>, R>
-public extension SimplicialCochain where A == Dual<Simplex> {
+extension SimplicialCochain where A == Dual<Simplex> {
     public func cup(_ f: SimplicialCochain<R>) -> SimplicialCochain<R> {
         typealias D = Dual<Simplex>
         
@@ -39,7 +39,7 @@ public extension SimplicialCochain where A == Dual<Simplex> {
             }
         }
         
-        let pairs = self.basis.allCombinations(with: f.basis)
+        let pairs = self.generators.allCombinations(with: f.generators)
         let elements = pairs.compactMap{ (d1, d2) in cup(d1, d2) }
         
         return SimplicialCochain<R>(elements)
@@ -83,7 +83,7 @@ public extension SimplicialCochain where A == Dual<Simplex> {
     }
 }
 
-public extension SimplicialCochain where A == Dual<Simplex>, R == 𝐙₂ {
+extension SimplicialCochain where A == Dual<Simplex>, R == 𝐙₂ {
     
     // Steenrod's cup-n product.
     // The formula is given here: https://arxiv.org/abs/math/0110314
@@ -130,7 +130,7 @@ public extension SimplicialCochain where A == Dual<Simplex>, R == 𝐙₂ {
             }
         }
         
-        let pairs = self.basis.allCombinations(with: g.basis)
+        let pairs = self.generators.allCombinations(with: g.generators)
         let elements = pairs.compactMap{ (d1, d2) in cup(d1, d2) }
                             .group{ $0.0 }
                             .map{ (d, e) in (d, e.sum{ $0.1 }) }

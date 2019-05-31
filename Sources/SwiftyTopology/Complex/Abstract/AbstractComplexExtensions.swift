@@ -10,7 +10,7 @@ import Foundation
 import SwiftyMath
 import SwiftyHomology
 
-public extension AbstractComplex {
+extension AbstractComplex {
     public var eulerNumber: Int {
         return validDims.sum{ i in (-1).pow(i) * cells(ofDim: i).count }
     }
