@@ -41,7 +41,8 @@ extension AbstractComplex {
     
     public func orientationCycle<R: EuclideanRing>(relativeTo L: Self? = nil, _ type: R.Type) -> FreeModule<Cell, R>? {
         let H = self.homology(relativeTo: L, R.self)
-        if let top = H[dim], top.isFree, top.rank == 1 {
+        let top = H[dim]
+        if top.isFree, top.rank == 1 {
             return top.generator(0)
         } else {
             return nil

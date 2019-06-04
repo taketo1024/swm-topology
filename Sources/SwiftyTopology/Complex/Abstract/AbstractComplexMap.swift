@@ -8,10 +8,23 @@
 
 import Foundation
 import SwiftyMath
+import SwiftyHomology
 
 public protocol AbstractComplexMap: MapType where Complex.Map == Self, Domain == Complex.Cell, Codomain == Complex.Cell {
     associatedtype Complex: AbstractComplex
     
     static func inclusion(from: Complex, to: Complex) -> Self
     static func diagonal(from: Complex) -> Self
+}
+
+extension AbstractComplexMap {
+    public func asChainMap<R>(_ type: R.Type) -> ChainMap1<FreeModule<Complex.Cell, R>, FreeModule<Complex.Cell, R>> {
+        return ChainMap(degree: 0) { _ in
+            ModuleHom.linearlyExtend {
+                (cell: Complex.Cell) in
+                let t = self.applied(to: cell)
+                return (cell.dim == t.dim) ? .wrap(t) : .zero
+            }
+        }
+    }
 }
