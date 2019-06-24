@@ -11,8 +11,8 @@ let package = Package(
             targets: ["SwiftyTopology"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/taketo1024/SwiftyMath.git", .exact("1.0.12")),
-        .package(url: "https://github.com/taketo1024/SwiftyMath-homology.git", .exact("1.0.7")),
+        .package(url: "https://github.com/taketo1024/SwiftyMath.git", .exact("1.0.14")),
+        .package(url: "https://github.com/taketo1024/SwiftyMath-homology.git", .exact("1.0.10")),
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
