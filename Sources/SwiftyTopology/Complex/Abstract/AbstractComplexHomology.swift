@@ -16,16 +16,9 @@ extension AbstractComplex {
             let cells = (L == nil)
                 ? self.cells(ofDim: i)
                 : self.cells(ofDim: i).subtract(L!.cells(ofDim: i))
-            let indexer = cells.indexer()
             
-            return self.validDims.contains(i)
-                ? ModuleObject(
-                    basis: cells.map{ .wrap($0) },
-                    factorizer: { (z: FreeModule<Cell, R>) in
-                        let comps = z.elements.compactMap { (cell, r) in indexer(cell).flatMap{ ($0, 0, r) }  }
-                        return DVector<R>(size: cells.count, components: comps)
-                })
-                : .zeroModule
+            return self.validDims.contains(i) ? ModuleObject( basis: cells ) : .zeroModule
+            
         }, differential: { i in
             ModuleHom.linearlyExtend{ cell in cell.boundary(R.self) }
         })
