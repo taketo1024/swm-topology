@@ -11,8 +11,8 @@ let package = Package(
             targets: ["SwiftyTopology"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/taketo1024/SwiftyMath.git", .exact("1.0.20")),
-        .package(url: "https://github.com/taketo1024/SwiftyMath-homology.git", .exact("1.0.15")),
+        .package(url: "https://github.com/taketo1024/SwiftyMath.git", .exact("1.0.22")),
+        .package(url: "https://github.com/taketo1024/SwiftyMath-homology.git", .exact("1.0.16")),
     ],
     targets: [
         .target(
