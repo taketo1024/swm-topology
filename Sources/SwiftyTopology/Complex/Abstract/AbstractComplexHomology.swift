@@ -12,16 +12,20 @@ import SwiftyHomology
 
 extension AbstractComplex {
     public func chainComplex<R: Ring>(relativeTo L: Self? = nil, _ type: R.Type) -> ChainComplex1<FreeModule<Cell, R>> {
-        return ChainComplex1(descendingSequence: { i in
-            let cells = (L == nil)
-                ? self.cells(ofDim: i)
-                : self.cells(ofDim: i).subtract(L!.cells(ofDim: i))
-            
-            return self.validDims.contains(i) ? ModuleObject( basis: cells ) : .zeroModule
-            
-        }, differential: { i in
-            ModuleHom.linearlyExtend{ cell in cell.boundary(R.self) }
-        })
+        return .descending(
+            supported: 0 ... dim,
+            sequence: { i in
+                let cells = (L == nil)
+                    ? self.cells(ofDim: i)
+                    : self.cells(ofDim: i).subtract(L!.cells(ofDim: i))
+                
+                return self.validDims.contains(i) ? ModuleObject( basis: cells ) : .zeroModule
+                
+            },
+            differential: { i in
+                ModuleHom.linearlyExtend{ cell in cell.boundary(R.self) }
+            }
+        )
     }
     
     public func homology<R: EuclideanRing>(relativeTo L: Self? = nil, _ type: R.Type) -> Homology1<FreeModule<Cell, R>> {

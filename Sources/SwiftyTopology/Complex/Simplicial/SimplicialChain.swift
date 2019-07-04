@@ -13,9 +13,9 @@ public typealias SimplicialChain<R: Ring> = FreeModule<Simplex, R>
 
 extension SimplicialChain where A == Simplex {
     public func boundary() -> SimplicialChain<R> {
-        return self.elements.reduce(SimplicialChain<R>.zero) { (res, next) -> SimplicialChain<R> in
-            let (s, r) = next
-            return res + r * s.boundary(R.self)
+        let f = ModuleEnd<SimplicialChain<R>>.linearlyExtend { s in
+            s.boundary(R.self)
         }
+        return f.applied(to: self)
     }
 }
