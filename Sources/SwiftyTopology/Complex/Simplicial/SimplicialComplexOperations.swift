@@ -6,21 +6,20 @@
 //  Copyright © 2017年 Taketo Sano. All rights reserved.
 //
 
-import Foundation
 import SwiftyMath
 
 // Operations
 extension SimplicialComplex {
     public func star(_ v: Vertex) -> SimplicialComplex {
-        return star( Simplex(v) )
+        star( Simplex(v) )
     }
     
     public func star(_ s: Simplex) -> SimplicialComplex {
-        return SimplicialComplex(name: "St\(s)", cells: maximalCells.filter{ $0.contains(s) } )
+        SimplicialComplex(name: "St\(s)", cells: maximalCells.filter{ $0.contains(s) } )
     }
     
     public func link(_ v: Vertex) -> SimplicialComplex {
-        return (star(v) - v).named("Lk\(v)")
+        (star(v) - v).named("Lk\(v)")
     }
     
     public func link(_ s: Simplex) -> SimplicialComplex {
@@ -41,7 +40,7 @@ extension SimplicialComplex {
     }
     
     public var boundaryVertices: [Vertex] {
-        return vertices.filter { v in !link(v).isOrientable }
+        vertices.filter { v in !link(v).isOrientable }
     }
     
     public func identifyVertices(_ pairs: [(Vertex, Vertex)]) -> SimplicialComplex {
@@ -74,7 +73,7 @@ extension SimplicialComplex {
     }
     
     public static func -(K1: SimplicialComplex, v: Vertex) -> SimplicialComplex {
-        return K1 - Simplex(v)
+        K1 - Simplex(v)
     }
     
     public static func -(K1: SimplicialComplex, s2: Simplex) -> SimplicialComplex {
@@ -196,7 +195,7 @@ extension SimplicialComplex {
     }
     
     public var barycentricSubdivision: SimplicialComplex {
-        return _barycentricSubdivision().0
+        _barycentricSubdivision().0
     }
     
     internal func _barycentricSubdivision() -> (SimplicialComplex, s2b: [Simplex: Vertex], b2s: [Vertex: Simplex]) {
@@ -212,7 +211,7 @@ extension SimplicialComplex {
                 b2s[v] = s
                 s2b[s] = v
                 return v
-                }()
+            }()
             
             if s.dim > 0 {
                 for t in s.faces() {
@@ -234,7 +233,7 @@ extension SimplicialComplex {
 
 extension Vertex {
     public var asComplex: SimplicialComplex {
-        return Simplex(self).asComplex.named(label)
+        Simplex(self).asComplex.named(label)
     }
     
     public func join(_ K: SimplicialComplex) -> SimplicialComplex {
@@ -245,6 +244,6 @@ extension Vertex {
 
 extension Simplex {
     public var asComplex: SimplicialComplex {
-        return SimplicialComplex(name: "△^\(dim)", cells: self)
+        SimplicialComplex(name: "△^\(dim)", cells: self)
     }
 }

@@ -6,7 +6,6 @@
 //  Copyright © 2018年 Taketo Sano. All rights reserved.
 //
 
-import Foundation
 import SwiftyMath
 import SwiftyHomology
 
@@ -19,7 +18,7 @@ public protocol AbstractComplexMap: MapType where Complex.Map == Self, Domain ==
 
 extension AbstractComplexMap {
     public func asChainMap<R>(_ type: R.Type) -> ChainMap1<FreeModule<Complex.Cell, R>, FreeModule<Complex.Cell, R>> {
-        return ChainMap(degree: 0) { _ in
+        ChainMap(degree: 0) { _ in
             ModuleHom.linearlyExtend {
                 (cell: Complex.Cell) in
                 let t = self.applied(to: cell)

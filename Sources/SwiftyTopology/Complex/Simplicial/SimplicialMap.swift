@@ -6,7 +6,6 @@
 //  Copyright © 2017年 Taketo Sano. All rights reserved.
 //
 
-import Foundation
 import SwiftyMath
 
 public struct SimplicialMap: AbstractComplexMap {
@@ -36,26 +35,26 @@ public struct SimplicialMap: AbstractComplexMap {
     }
     
     public func applied(to v: Vertex) -> Vertex {
-        return function(Simplex(v)).vertices[0]
+        function(Simplex(v)).vertices[0]
     }
     
     public func applied(to s: Simplex) -> Simplex {
-        return function(s)
+        function(s)
     }
     
     public static var identity: SimplicialMap {
-        return SimplicialMap { (s: Simplex) in s }
+        SimplicialMap { (s: Simplex) in s }
     }
     
     public static func inclusion(from: SimplicialComplex, to: SimplicialComplex) -> SimplicialMap {
-        return identity
+        .identity
     }
     
     public static func diagonal(from: SimplicialComplex) -> SimplicialMap {
-        return SimplicialMap { (v: Vertex) in v × v }
+        SimplicialMap { (v: Vertex) in v × v }
     }
     
     public static func projection(_ i: Int) -> SimplicialMap {
-        return SimplicialMap { (v: Vertex) in v.components[i] }
+        SimplicialMap { (v: Vertex) in v.components[i] }
     }
 }

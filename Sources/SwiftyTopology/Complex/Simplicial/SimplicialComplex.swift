@@ -6,7 +6,6 @@
 //  Copyright © 2017年 Taketo Sano. All rights reserved.
 //
 
-import Foundation
 import SwiftyMath
 
 public struct SimplicialComplex: AbstractComplex {
@@ -33,7 +32,7 @@ public struct SimplicialComplex: AbstractComplex {
     }
     
     public static var empty: SimplicialComplex {
-        return SimplicialComplex.init(name: "∅", cells: [])
+        SimplicialComplex.init(name: "∅", cells: [])
     }
     
     public func skeleton(_ i: Int) -> SimplicialComplex {
@@ -66,7 +65,7 @@ public struct SimplicialComplex: AbstractComplex {
     }
     
     public func cofaces(ofCell s: Simplex) -> [Simplex] {
-        return cells(ofDim: s.dim + 1).filter{ $0.contains(s) }
+        cells(ofDim: s.dim + 1).filter{ $0.contains(s) }
     }
     
     public func named(_ name: String) -> SimplicialComplex {

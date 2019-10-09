@@ -6,7 +6,6 @@
 //  Copyright © 2017年 Taketo Sano. All rights reserved.
 //
 
-import Foundation
 import SwiftyMath
 
 public protocol AbstractComplex: CustomStringConvertible where Map.Complex == Self {
@@ -27,33 +26,33 @@ public protocol AbstractComplex: CustomStringConvertible where Map.Complex == Se
 
 extension AbstractComplex {
     public var name: String {
-        return "_" // TODO
+        "_" // TODO
     }
     
     public func contains(_ cell: Cell) -> Bool {
-        return cells(ofDim: cell.dim).contains(cell)
+        cells(ofDim: cell.dim).contains(cell)
     }
     
     internal var validDims: [Int] {
-        return (dim >= 0) ? (0 ... dim).toArray() : []
+        (dim >= 0) ? (0 ... dim).toArray() : []
     }
 
     public var allCells: [Cell] {
-        return validDims.flatMap{ cells(ofDim: $0) }
+        validDims.flatMap{ cells(ofDim: $0) }
     }
     
     public func boundaryMap<R: Ring>(_ i: Int, _ type: R.Type) -> ModuleEnd<FreeModule<Cell, R>> {
-        return ModuleHom.linearlyExtend { s in
+        ModuleHom.linearlyExtend { s in
             (s.dim == i) ? s.boundary(R.self) : .zero
         }
     }
     
     public var description: String {
-        return (name == "_") ? "\(type(of: self))" : name
+        (name == "_") ? "\(type(of: self))" : name
     }
     
     public var detailDescription: String {
-        return "\(description) {\n" +
+        "\(description) {\n" +
             validDims.map{ (i) -> (Int, [Cell]) in (i, cells(ofDim: i)) }
                      .map{ (i, cells) -> String in "\t\(i): " + cells.map{"\($0)"}.joined(separator: ", ")}
                      .joined(separator: "\n")

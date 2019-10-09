@@ -6,7 +6,6 @@
 //  Copyright © 2017年 Taketo Sano. All rights reserved.
 //
 
-import Foundation
 import SwiftyMath
 
 public struct Simplex: AbstractCell, Comparable {
@@ -40,11 +39,11 @@ public struct Simplex: AbstractCell, Comparable {
     }
     
     public var dim: Int {
-        return vertices.count - 1
+        vertices.count - 1
     }
     
     public func index(ofVertex v: Vertex) -> Int? {
-        return vertices.firstIndex(of: v)
+        vertices.firstIndex(of: v)
     }
     
     public func face(_ index: Int) -> Simplex {
@@ -54,11 +53,7 @@ public struct Simplex: AbstractCell, Comparable {
     }
     
     public func faces() -> [Simplex] {
-        if dim <= 0 {
-            return []
-        } else {
-            return (0 ... dim).map{ face($0) }
-        }
+        (dim <= 0) ? [] : (0 ... dim).map{ face($0) }
     }
     
     public func subsimplicices(dim k: Int) -> [Simplex] {
@@ -76,23 +71,23 @@ public struct Simplex: AbstractCell, Comparable {
     }
     
     public var isEmpty: Bool {
-        return dim == -1
+        dim == -1
     }
     
     public func contains(_ v: Vertex) -> Bool {
-        return unorderedVertices.contains(v)
+        unorderedVertices.contains(v)
     }
     
     public func contains(_ s: Simplex) -> Bool {
-        return s.unorderedVertices.isSubset(of: self.unorderedVertices)
+        s.unorderedVertices.isSubset(of: self.unorderedVertices)
     }
     
     public func subtract(_ s: Simplex) -> Simplex {
-        return Simplex(self.unorderedVertices.subtracting(s.unorderedVertices))
+        Simplex(self.unorderedVertices.subtracting(s.unorderedVertices))
     }
     
     public func subtract(_ v: Vertex) -> Simplex {
-        return Simplex(self.unorderedVertices.subtracting([v]))
+        Simplex(self.unorderedVertices.subtracting([v]))
     }
     
     public func boundary<R: Ring>(_ type: R.Type) -> SimplicialChain<R> {
@@ -104,15 +99,15 @@ public struct Simplex: AbstractCell, Comparable {
     }
     
     public static func ∪(_ s1: Simplex, _ s2: Simplex) -> Simplex {
-        return Simplex(s1.unorderedVertices.union(s2.unorderedVertices))
+        Simplex(s1.unorderedVertices.union(s2.unorderedVertices))
     }
     
     public static func ∩(_ s1: Simplex, _ s2: Simplex) -> Simplex {
-        return Simplex(s1.unorderedVertices.intersection(s2.unorderedVertices))
+        Simplex(s1.unorderedVertices.intersection(s2.unorderedVertices))
     }
     
     public static func ==(a: Simplex, b: Simplex) -> Bool {
-        return a.id == b.id
+        a.id == b.id
     }
     
     public static func <(a: Simplex, b: Simplex) -> Bool {
@@ -130,17 +125,17 @@ public struct Simplex: AbstractCell, Comparable {
         }
     }
     
-    public var hashValue: Int {
-        return id.hashValue
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
     }
     
     public var description: String {
-        return label
+        label
     }
 }
 
 extension Vertex {
     public func join(_ s: Simplex) -> Simplex {
-        return Simplex([self] + s.vertices)
+        Simplex([self] + s.vertices)
     }
 }

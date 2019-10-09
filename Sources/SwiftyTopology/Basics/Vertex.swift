@@ -6,7 +6,6 @@
 //  Copyright © 2017年 Taketo Sano. All rights reserved.
 //
 
-import Foundation
 import SwiftyMath
 
 private var list: [Vertex] = []
@@ -36,32 +35,28 @@ public struct Vertex: SetType, Hashable, Comparable, CustomStringConvertible {
         self.init(Format.symbol(prefix, list.count))
     }
     
-    public var hashValue: Int {
-        return id
-    }
-    
     public var components: [Vertex] {
-        return _components.isEmpty ? [self] : _components
+        _components.isEmpty ? [self] : _components
     }
     
     public static func ==(a: Vertex, b: Vertex) -> Bool {
-        return (a.id == b.id)
+        a.id == b.id
     }
     
     public static func <(a: Vertex, b: Vertex) -> Bool {
-        return a.id < b.id
+        a.id < b.id
     }
     
     public var description: String {
-        return label
+        label
     }
     
     public static func generate(_ n: Int, prefix: String = "v") -> [Vertex] {
-        return (0 ..< n).map { i in Vertex(prefix: prefix) }
+        (0 ..< n).map { i in Vertex(prefix: prefix) }
     }
     
     public static func vertex(ofID id: Int) -> Vertex {
-        return list[id]
+        list[id]
     }
     
     public static func ×(v1: Vertex, v2: Vertex) -> Vertex {
@@ -78,7 +73,11 @@ public struct Vertex: SetType, Hashable, Comparable, CustomStringConvertible {
         }
     }
 
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+    
     private static func productKey(_ components: [Vertex]) -> String {
-        return components.map{ "\($0.id)" }.joined(separator: ",")
+        components.map{ "\($0.id)" }.joined(separator: ",")
     }
 }
