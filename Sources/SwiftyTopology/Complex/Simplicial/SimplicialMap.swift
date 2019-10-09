@@ -14,7 +14,7 @@ public struct SimplicialMap: AbstractComplexMap {
     public typealias Domain      = Simplex
     public typealias Codomain    = Simplex
     
-    private let map: (Simplex) -> Simplex
+    public let function: (Simplex) -> Simplex
     
     public init(_ f: @escaping (Vertex) -> Vertex) {
         self.init() { (s: Simplex) in
@@ -23,7 +23,7 @@ public struct SimplicialMap: AbstractComplexMap {
     }
     
     public init(_ f: @escaping (Simplex) -> Simplex) {
-        self.map = f
+        self.function = f
     }
     
     public init(_ map: [Vertex: Vertex]) {
@@ -36,11 +36,11 @@ public struct SimplicialMap: AbstractComplexMap {
     }
     
     public func applied(to v: Vertex) -> Vertex {
-        return map(Simplex(v)).vertices[0]
+        return function(Simplex(v)).vertices[0]
     }
     
     public func applied(to s: Simplex) -> Simplex {
-        return map(s)
+        return function(s)
     }
     
     public static var identity: SimplicialMap {

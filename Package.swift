@@ -1,4 +1,4 @@
-// swift-tools-version:4.0
+// swift-tools-version:5.1
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -11,8 +11,8 @@ let package = Package(
             targets: ["SwiftyTopology"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/taketo1024/SwiftyMath.git", from: "1.0.24"),
-        .package(url: "https://github.com/taketo1024/SwiftyMath-homology.git", from: "1.0.19"),
+        .package(url: "https://github.com/taketo1024/SwiftyMath.git", .branch("develop")),
+        .package(url: "https://github.com/taketo1024/SwiftyMath-homology.git", .branch("develop")),
     ],
     targets: [
         .target(

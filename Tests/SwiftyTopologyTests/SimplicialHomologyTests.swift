@@ -11,6 +11,19 @@ import SwiftyMath
 import SwiftyHomology
 @testable import SwiftyTopology
 
+extension IntegerQuotientRing: ExpressibleByIntegerLiteral {
+    public init(integerLiteral value: Int) {
+        self.init(from: value)
+    }
+}
+
+extension RationalNumber: ExpressibleByIntegerLiteral {
+    public init(integerLiteral value: Int) {
+        self.init(value)
+    }
+}
+
+
 class SimplicialHomologyTests: XCTestCase {
     
     func testD3_Z() {

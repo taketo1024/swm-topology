@@ -12,7 +12,8 @@ import SwiftyHomology
 
 extension AbstractComplex {
     public func chainComplex<R: Ring>(relativeTo L: Self? = nil, _ type: R.Type) -> ChainComplex1<FreeModule<Cell, R>> {
-        return .descending(
+        ChainComplex1(
+            type: .descending,
             supported: 0 ... dim,
             sequence: { i in
                 let cells = (L == nil)
@@ -28,17 +29,15 @@ extension AbstractComplex {
         )
     }
     
-    public func homology<R: EuclideanRing>(relativeTo L: Self? = nil, _ type: R.Type) -> Homology1<FreeModule<Cell, R>> {
-        let C = chainComplex(relativeTo: L, type)
-        return Homology(C)
+    public func homology<R: EuclideanRing>(relativeTo L: Self? = nil, _ type: R.Type) -> ModuleGrid1<FreeModule<Cell, R>> {
+        chainComplex(relativeTo: L, type).homology
     }
 
     public func cochainComplex<R: EuclideanRing>(relativeTo L: Self? = nil, _ type: R.Type) -> ChainComplex1<Dual<FreeModule<Cell, R>>> {
-        return chainComplex(relativeTo: L, type).dual
+        chainComplex(relativeTo: L, type).dual
     }
 
-    public func cohomology<R: EuclideanRing>(relativeTo L: Self? = nil, _ type: R.Type) -> Homology1<Dual<FreeModule<Cell, R>>> {
-        let C = cochainComplex(relativeTo: L, type)
-        return C.homology
+    public func cohomology<R: EuclideanRing>(relativeTo L: Self? = nil, _ type: R.Type) -> ModuleGrid1<Dual<FreeModule<Cell, R>>> {
+        cochainComplex(relativeTo: L, type).homology
     }
 }

@@ -44,7 +44,7 @@ public struct Simplex: AbstractCell, Comparable {
     }
     
     public func index(ofVertex v: Vertex) -> Int? {
-        return vertices.index(of: v)
+        return vertices.firstIndex(of: v)
     }
     
     public func face(_ index: Int) -> Simplex {
@@ -71,7 +71,7 @@ public struct Simplex: AbstractCell, Comparable {
         } else if k == 0 {
             return vertices.map{ v in Simplex(v) }
         } else {
-            return (dim + 1).choose(k + 1).map { I in Simplex(vertexSet: vertices, indices: I) }
+            return (0 ... dim).choose(k + 1).map { I in Simplex(vertexSet: vertices, indices: I) }
         }
     }
     
@@ -96,11 +96,11 @@ public struct Simplex: AbstractCell, Comparable {
     }
     
     public func boundary<R: Ring>(_ type: R.Type) -> SimplicialChain<R> {
-        let values: [(Simplex, R)] = faces().enumerated().map { (i, t) -> (Simplex, R) in
+        let elements: [(Simplex, R)] = faces().enumerated().map { (i, t) -> (Simplex, R) in
             let e = R(from: (-1).pow(i))
             return (t, e)
         }
-        return SimplicialChain(values)
+        return SimplicialChain(elements: elements)
     }
     
     public static func ∪(_ s1: Simplex, _ s2: Simplex) -> Simplex {

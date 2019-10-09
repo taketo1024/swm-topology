@@ -109,7 +109,7 @@ extension SimplicialComplex {
     }
     
     internal static func productSimplices(_ ss: [Simplex], _ ts: [Simplex]) -> [Simplex] {
-        return ss.allCombinations(with: ts).flatMap{ (s, t) in productSimplices(s, t) }
+        return (ss * ts).flatMap{ (s, t) in productSimplices(s, t) }
     }
     
     internal static func productSimplices(_ s: Simplex, _ t: Simplex) -> [Simplex] {
@@ -117,7 +117,7 @@ extension SimplicialComplex {
         
         // generate array of (n + m)-dim product simplices by the zig-zag method.
         
-        let combis = (n + m).choose(n)
+        let combis = (0 ..< n + m).choose(n)
         let vPairs = combis.map{ c -> [(Vertex, Vertex)] in
             let start = [(s.vertices[0], t.vertices[0])]
             var (i, j) = (0, 0)
