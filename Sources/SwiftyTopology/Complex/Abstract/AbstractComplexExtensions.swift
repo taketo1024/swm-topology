@@ -30,15 +30,15 @@ extension AbstractComplex {
         orientationCycle(relativeTo: L, R.self) != nil
     }
     
-    public var orientationCycle: FreeModule<Cell, 𝐙>? {
+    public var orientationCycle: LinearCombination<Cell, 𝐙>? {
         orientationCycle(relativeTo: nil, 𝐙.self)
     }
     
-    public func orientationCycle(relativeTo L: Self) -> FreeModule<Cell, 𝐙>? {
+    public func orientationCycle(relativeTo L: Self) -> LinearCombination<Cell, 𝐙>? {
         orientationCycle(relativeTo: L, 𝐙.self)
     }
     
-    public func orientationCycle<R: EuclideanRing>(relativeTo L: Self? = nil, _ type: R.Type) -> FreeModule<Cell, R>? {
+    public func orientationCycle<R: EuclideanRing>(relativeTo L: Self? = nil, _ type: R.Type) -> LinearCombination<Cell, R>? {
         let H = self.homology(relativeTo: L, R.self)
         let top = H[dim]
         if top.isFree, top.rank == 1 {

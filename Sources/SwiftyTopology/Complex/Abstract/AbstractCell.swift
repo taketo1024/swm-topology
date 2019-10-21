@@ -10,7 +10,7 @@ import SwiftyMath
 
 public protocol AbstractCell: SetType, FreeModuleGenerator {
     var dim: Int { get }
-    func boundary<R: Ring>(_ type: R.Type) -> FreeModule<Self, R>
+    func boundary<R: Ring>(_ type: R.Type) -> LinearCombination<Self, R>
 }
 
 extension AbstractCell {

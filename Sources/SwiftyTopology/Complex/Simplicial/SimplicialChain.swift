@@ -8,9 +8,9 @@
 
 import SwiftyMath
 
-public typealias SimplicialChain<R: Ring> = FreeModule<Simplex, R>
+public typealias SimplicialChain<R: Ring> = LinearCombination<Simplex, R>
 
-extension SimplicialChain where A == Simplex {
+extension SimplicialChain where Generator == Simplex {
     public func boundary() -> SimplicialChain<R> {
         let f = ModuleEnd<SimplicialChain<R>>.linearlyExtend { s in
             s.boundary(R.self)

@@ -21,7 +21,7 @@ public protocol AbstractComplex: CustomStringConvertible where Map.Complex == Se
     func cells(ofDim: Int) -> [Cell]
     func skeleton(_ dim: Int) -> Self
     
-    func boundaryMap<R: Ring>(_ i: Int, _ type: R.Type) -> ModuleEnd<FreeModule<Cell, R>>
+    func boundaryMap<R: Ring>(_ i: Int, _ type: R.Type) -> ModuleEnd<LinearCombination<Cell, R>>
 }
 
 extension AbstractComplex {
@@ -41,7 +41,7 @@ extension AbstractComplex {
         validDims.flatMap{ cells(ofDim: $0) }
     }
     
-    public func boundaryMap<R: Ring>(_ i: Int, _ type: R.Type) -> ModuleEnd<FreeModule<Cell, R>> {
+    public func boundaryMap<R: Ring>(_ i: Int, _ type: R.Type) -> ModuleEnd<LinearCombination<Cell, R>> {
         ModuleHom.linearlyExtend { s in
             (s.dim == i) ? s.boundary(R.self) : .zero
         }

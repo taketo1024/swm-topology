@@ -17,7 +17,7 @@ public protocol AbstractComplexMap: MapType where Complex.Map == Self, Domain ==
 }
 
 extension AbstractComplexMap {
-    public func asChainMap<R>(_ type: R.Type) -> ChainMap1<FreeModule<Complex.Cell, R>, FreeModule<Complex.Cell, R>> {
+    public func asChainMap<R>(_ type: R.Type) -> ChainMap1<LinearCombination<Complex.Cell, R>, LinearCombination<Complex.Cell, R>> {
         ChainMap(degree: 0) { _ in
             ModuleHom.linearlyExtend {
                 (cell: Complex.Cell) in

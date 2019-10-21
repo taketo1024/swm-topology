@@ -10,7 +10,7 @@ import SwiftyMath
 import SwiftyHomology
 
 extension AbstractComplex {
-    public func chainComplex<R: Ring>(relativeTo L: Self? = nil, _ type: R.Type) -> ChainComplex1<FreeModule<Cell, R>> {
+    public func chainComplex<R: Ring>(relativeTo L: Self? = nil, _ type: R.Type) -> ChainComplex1<LinearCombination<Cell, R>> {
         ChainComplex1(
             type: .descending,
             supported: 0 ... dim,
@@ -28,15 +28,15 @@ extension AbstractComplex {
         )
     }
     
-    public func homology<R: EuclideanRing>(relativeTo L: Self? = nil, _ type: R.Type) -> ModuleGrid1<FreeModule<Cell, R>> {
+    public func homology<R: EuclideanRing>(relativeTo L: Self? = nil, _ type: R.Type) -> ModuleGrid1<LinearCombination<Cell, R>> {
         chainComplex(relativeTo: L, type).homology
     }
 
-    public func cochainComplex<R: EuclideanRing>(relativeTo L: Self? = nil, _ type: R.Type) -> ChainComplex1<Dual<FreeModule<Cell, R>>> {
+    public func cochainComplex<R: EuclideanRing>(relativeTo L: Self? = nil, _ type: R.Type) -> ChainComplex1<Dual<LinearCombination<Cell, R>>> {
         chainComplex(relativeTo: L, type).dual
     }
 
-    public func cohomology<R: EuclideanRing>(relativeTo L: Self? = nil, _ type: R.Type) -> ModuleGrid1<Dual<FreeModule<Cell, R>>> {
+    public func cohomology<R: EuclideanRing>(relativeTo L: Self? = nil, _ type: R.Type) -> ModuleGrid1<Dual<LinearCombination<Cell, R>>> {
         cochainComplex(relativeTo: L, type).homology
     }
 }
