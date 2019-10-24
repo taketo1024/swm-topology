@@ -40,7 +40,7 @@ public struct SimplicialComplex: AbstractComplex {
             return .empty
         }
         
-        let cells = maximalCells.flatMap { s -> [Simplex] in
+        let cells = maximalCells.parallelFlatMap { s -> [Simplex] in
             (s.dim > i) ? s.subsimplicices(dim: i) : [s]
         }.unique()
         
@@ -56,7 +56,7 @@ public struct SimplicialComplex: AbstractComplex {
             return cells
         }
             
-        let cells = maximalCells.flatMap { s -> [Simplex] in
+        let cells = maximalCells.parallelFlatMap { s -> [Simplex] in
             s.subsimplicices(dim: i)
         }.unique()
         
