@@ -1,5 +1,5 @@
 //
-//  AbstractCell.swift
+//  TopologicalCell.swift
 //  SwiftyTopology
 //
 //  Created by Taketo Sano on 2018/03/10.
@@ -8,11 +8,11 @@
 
 import SwiftyMath
 
-public protocol AbstractCell: SetType, FreeModuleGenerator {
+public protocol TopologicalCell: SetType, FreeModuleGenerator {
     var dim: Int { get }
     func boundary<R: Ring>(_ type: R.Type) -> LinearCombination<Self, R>
 }
 
-extension AbstractCell {
+extension TopologicalCell {
     public var degree: Int { return dim }
 }

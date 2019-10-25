@@ -8,7 +8,7 @@
 
 import SwiftyMath
 
-public struct SimplicialComplex: AbstractComplex {
+public struct SimplicialComplex: TopologicalComplex {
     public typealias Cell = Simplex
     public typealias Map = SimplicialMap
     

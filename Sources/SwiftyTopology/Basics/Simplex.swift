@@ -8,7 +8,7 @@
 
 import SwiftyMath
 
-public struct Simplex: AbstractCell, Comparable {
+public struct Simplex: TopologicalCell, Comparable {
     public let vertices: [Vertex]          // vertices in input order.
     internal let sortedVertices: [Vertex]  // vertices in v-id ordering.
     internal let unorderedVertices: Set<Vertex>  // unordered set of vertices.
