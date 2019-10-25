@@ -13,7 +13,7 @@ extension AbstractComplex {
     public func chainComplex<R: Ring>(relativeTo L: Self? = nil, _ type: R.Type) -> ChainComplex1<LinearCombination<Cell, R>> {
         ChainComplex1(
             type: .descending,
-            supported: 0 ... dim,
+            support: 0 ... dim,
             sequence: { i in
                 let cells = (L == nil)
                     ? self.cells(ofDim: i)
