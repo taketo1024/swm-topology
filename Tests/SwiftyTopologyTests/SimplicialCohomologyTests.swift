@@ -15,7 +15,7 @@ class SimplicialCohomologyTests: XCTestCase {
     
     func testD3_Z() {
         let K = SimplicialComplex.ball(dim: 3)
-        let H = K.cohomology(𝐙.self)
+        let H = SimplicialCohomology<𝐙>(K)
         
         XCTAssertEqual(H[0].dictionaryDescription, [0 : 1])
         XCTAssertEqual(H[1].dictionaryDescription, [:])
@@ -25,7 +25,7 @@ class SimplicialCohomologyTests: XCTestCase {
     
     func testS2_Z() {
         let K = SimplicialComplex.sphere(dim: 2)
-        let H = K.cohomology(𝐙.self)
+        let H = SimplicialCohomology<𝐙>(K)
         
         XCTAssertEqual(H[0].dictionaryDescription, [0 : 1])
         XCTAssertEqual(H[1].dictionaryDescription, [:])
@@ -35,7 +35,7 @@ class SimplicialCohomologyTests: XCTestCase {
     func testD3_S2_Z() {
         let K = SimplicialComplex.ball(dim: 3)
         let L = K.skeleton(2)
-        let H = K.cohomology(relativeTo: L, 𝐙.self)
+        let H = SimplicialCohomology<𝐙>(K, relativeTo: L)
         
         XCTAssertEqual(H[0].dictionaryDescription, [:])
         XCTAssertEqual(H[1].dictionaryDescription, [:])
@@ -45,7 +45,7 @@ class SimplicialCohomologyTests: XCTestCase {
     
     func testT2_Z() {
         let K = SimplicialComplex.torus(dim: 2)
-        let H = K.cohomology(𝐙.self)
+        let H = SimplicialCohomology<𝐙>(K)
         
         XCTAssertEqual(H[0].dictionaryDescription, [0 : 1])
         XCTAssertEqual(H[1].dictionaryDescription, [0 : 2])
@@ -54,7 +54,7 @@ class SimplicialCohomologyTests: XCTestCase {
     
     func testRP2_Z() {
         let K = SimplicialComplex.realProjectiveSpace(dim: 2)
-        let H = K.cohomology(𝐙.self)
+        let H = SimplicialCohomology<𝐙>(K)
         
         XCTAssertEqual(H[0].dictionaryDescription, [0 : 1])
         XCTAssertEqual(H[1].dictionaryDescription, [:])
@@ -63,7 +63,7 @@ class SimplicialCohomologyTests: XCTestCase {
     
     func testD3_Z2() {
         let K = SimplicialComplex.ball(dim: 3)
-        let H = K.cohomology(𝐙₂.self)
+        let H = SimplicialCohomology<𝐙₂>(K)
         
         XCTAssertEqual(H[0].dictionaryDescription, [0 : 1])
         XCTAssertEqual(H[1].dictionaryDescription, [:])
@@ -73,7 +73,7 @@ class SimplicialCohomologyTests: XCTestCase {
     
     func testS2_Z2() {
         let K = SimplicialComplex.sphere(dim: 2)
-        let H = K.cohomology(𝐙₂.self)
+        let H = SimplicialCohomology<𝐙₂>(K)
         
         XCTAssertEqual(H[0].dictionaryDescription, [0 : 1])
         XCTAssertEqual(H[1].dictionaryDescription, [:])
@@ -83,7 +83,7 @@ class SimplicialCohomologyTests: XCTestCase {
     func testD3_S2_Z2() {
         let K = SimplicialComplex.ball(dim: 3)
         let L = K.skeleton(2)
-        let H = K.cohomology(relativeTo: L, 𝐙₂.self)
+        let H = SimplicialCohomology<𝐙₂>(K, relativeTo: L)
         
         XCTAssertEqual(H[0].dictionaryDescription, [:])
         XCTAssertEqual(H[1].dictionaryDescription, [:])
@@ -93,7 +93,7 @@ class SimplicialCohomologyTests: XCTestCase {
     
     func testT2_Z2() {
         let K = SimplicialComplex.torus(dim: 2)
-        let H = K.cohomology(𝐙₂.self)
+        let H = SimplicialCohomology<𝐙₂>(K)
         
         XCTAssertEqual(H[0].dictionaryDescription, [0 : 1])
         XCTAssertEqual(H[1].dictionaryDescription, [0 : 2])
@@ -102,7 +102,7 @@ class SimplicialCohomologyTests: XCTestCase {
     
     func testRP2_Z2() {
         let K = SimplicialComplex.realProjectiveSpace(dim: 2)
-        let H = K.cohomology(𝐙₂.self)
+        let H = SimplicialCohomology<𝐙₂>(K)
         
         XCTAssertEqual(H[0].dictionaryDescription, [0 : 1])
         XCTAssertEqual(H[1].dictionaryDescription, [0 : 1])
@@ -111,7 +111,7 @@ class SimplicialCohomologyTests: XCTestCase {
     
     func testD3_Q() {
         let K = SimplicialComplex.ball(dim: 3)
-        let H = K.cohomology(𝐐.self)
+        let H = SimplicialCohomology<𝐐>(K)
         
         XCTAssertEqual(H[0].dictionaryDescription, [0 : 1])
         XCTAssertEqual(H[1].dictionaryDescription, [:])
@@ -121,7 +121,7 @@ class SimplicialCohomologyTests: XCTestCase {
     
     func testS2_Q() {
         let K = SimplicialComplex.sphere(dim: 2)
-        let H = K.cohomology(𝐐.self)
+        let H = SimplicialCohomology<𝐐>(K)
         
         XCTAssertEqual(H[0].dictionaryDescription, [0 : 1])
         XCTAssertEqual(H[1].dictionaryDescription, [:])
@@ -131,7 +131,7 @@ class SimplicialCohomologyTests: XCTestCase {
     func testD3_S2_Q() {
         let K = SimplicialComplex.ball(dim: 3)
         let L = K.skeleton(2)
-        let H = K.cohomology(relativeTo: L, 𝐐.self)
+        let H = SimplicialCohomology<𝐐>(K, relativeTo: L)
         
         XCTAssertEqual(H[0].dictionaryDescription, [:])
         XCTAssertEqual(H[1].dictionaryDescription, [:])
@@ -141,7 +141,7 @@ class SimplicialCohomologyTests: XCTestCase {
     
     func testT2_Q() {
         let K = SimplicialComplex.torus(dim: 2)
-        let H = K.cohomology(𝐐.self)
+        let H = SimplicialCohomology<𝐐>(K)
         
         XCTAssertEqual(H[0].dictionaryDescription, [0 : 1])
         XCTAssertEqual(H[1].dictionaryDescription, [0 : 2])
@@ -150,7 +150,7 @@ class SimplicialCohomologyTests: XCTestCase {
     
     func testRP2_Q() {
         let K = SimplicialComplex.realProjectiveSpace(dim: 2)
-        let H = K.cohomology(𝐐.self)
+        let H = SimplicialCohomology<𝐐>(K)
         
         XCTAssertEqual(H[0].dictionaryDescription, [0 : 1])
         XCTAssertEqual(H[1].dictionaryDescription, [:])

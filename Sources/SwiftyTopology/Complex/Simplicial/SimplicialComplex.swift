@@ -84,3 +84,6 @@ public struct SimplicialComplex: TopologicalComplex {
         return result
     }
 }
+
+public typealias SimplicialHomology<R: EuclideanRing> = TopologicalHomology<SimplicialComplex, R>
+public typealias SimplicialCohomology<R: EuclideanRing> = TopologicalCohomology<SimplicialComplex, R>

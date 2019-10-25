@@ -78,20 +78,21 @@ extension TopologicalComplex {
         orientationCycle(relativeTo: L) != nil
     }
     
-    public func isOrientable<R: EuclideanRing>(relativeTo L: Self?, _ type: R.Type) -> Bool {
-        orientationCycle(relativeTo: L, R.self) != nil
+    public func isOrientable<R: EuclideanRing>(relativeTo L: Self?, over: R.Type) -> Bool {
+        orientationCycle(relativeTo: L, over: R.self) != nil
     }
     
     public var orientationCycle: LinearCombination<Cell, 𝐙>? {
-        orientationCycle(relativeTo: nil, 𝐙.self)
+        orientationCycle(relativeTo: nil, over: 𝐙.self)
     }
     
     public func orientationCycle(relativeTo L: Self) -> LinearCombination<Cell, 𝐙>? {
-        orientationCycle(relativeTo: L, 𝐙.self)
+        orientationCycle(relativeTo: L, over: 𝐙.self)
     }
     
-    public func orientationCycle<R: EuclideanRing>(relativeTo L: Self? = nil, _ type: R.Type) -> LinearCombination<Cell, R>? {
-        let H = self.homology(relativeTo: L, R.self)
+    public func orientationCycle<R: EuclideanRing>(relativeTo L: Self? = nil, over: R.Type) -> LinearCombination<Cell, R>? {
+        let K = self
+        let H = TopologicalHomology<Self, R>(K, relativeTo: L, withGenerators: true)
         let top = H[dim]
         if top.isFree, top.rank == 1 {
             return top.generator(0)
@@ -102,7 +103,7 @@ extension TopologicalComplex {
 }
 
 extension TopologicalComplex {
-    public func chainComplex<R: Ring>(relativeTo L: Self? = nil, _ type: R.Type) -> ChainComplex1<LinearCombination<Cell, R>> {
+    public func asChainComplex<R: Ring>(relativeTo L: Self? = nil, over: R.Type) -> ChainComplex1<LinearCombination<Cell, R>> {
         ChainComplex1(
             type: .descending,
             support: 0 ... dim,
@@ -118,17 +119,5 @@ extension TopologicalComplex {
                 ModuleHom.linearlyExtend{ cell in cell.boundary(R.self) }
             }
         )
-    }
-    
-    public func homology<R: EuclideanRing>(relativeTo L: Self? = nil, _ type: R.Type) -> ModuleGrid1<LinearCombination<Cell, R>> {
-        chainComplex(relativeTo: L, type).homology
-    }
-
-    public func cochainComplex<R: EuclideanRing>(relativeTo L: Self? = nil, _ type: R.Type) -> ChainComplex1<Dual<LinearCombination<Cell, R>>> {
-        chainComplex(relativeTo: L, type).dual
-    }
-
-    public func cohomology<R: EuclideanRing>(relativeTo L: Self? = nil, _ type: R.Type) -> ModuleGrid1<Dual<LinearCombination<Cell, R>>> {
-        cochainComplex(relativeTo: L, type).homology
     }
 }
