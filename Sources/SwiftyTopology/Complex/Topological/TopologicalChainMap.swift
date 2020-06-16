@@ -21,7 +21,7 @@ extension TopologicalChainMap {
         ChainMap(degree: 0) { _ in
             ModuleHom.linearlyExtend {
                 (cell: Complex.Cell) in
-                let t = self.applied(to: cell)
+                let t = self(cell)
                 return (cell.dim == t.dim) ? .wrap(t) : .zero
             }
         }

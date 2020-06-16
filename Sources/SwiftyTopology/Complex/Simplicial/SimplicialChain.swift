@@ -15,6 +15,6 @@ extension SimplicialChain where Generator == Simplex {
         let f = ModuleEnd<SimplicialChain<R>>.linearlyExtend { s in
             s.boundary(R.self)
         }
-        return f.applied(to: self)
+        return f(self)
     }
 }

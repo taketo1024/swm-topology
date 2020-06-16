@@ -30,15 +30,15 @@ public struct SimplicialMap: TopologicalChainMap {
     }
     
     public func image(of K: SimplicialComplex) -> SimplicialComplex {
-        let cells = K.maximalCells.map { s in self.applied(to: s) }.unique()
+        let cells = K.maximalCells.map { s in self(s) }.unique()
         return SimplicialComplex(cells: cells, filterMaximalCells: true)
     }
     
-    public func applied(to v: Vertex) -> Vertex {
+    public func callAsFunction(_ v: Vertex) -> Vertex {
         function(Simplex(v)).vertices[0]
     }
     
-    public func applied(to s: Simplex) -> Simplex {
+    public func callAsFunction(_ s: Simplex) -> Simplex {
         function(s)
     }
     
