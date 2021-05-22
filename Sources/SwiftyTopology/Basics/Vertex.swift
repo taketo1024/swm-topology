@@ -11,7 +11,7 @@ import SwiftyMath
 private var list: [Vertex] = []
 private var productList: [String: Vertex] = [:]
 
-public struct Vertex: SetType, Hashable, Comparable, CustomStringConvertible {
+public struct Vertex: Hashable, Comparable, CustomStringConvertible {
     public let id: Int
     public let label: String
     

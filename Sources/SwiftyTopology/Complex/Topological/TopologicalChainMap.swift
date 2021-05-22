@@ -17,12 +17,12 @@ public protocol TopologicalChainMap: MapType where Complex.Map == Self, Domain =
 }
 
 extension TopologicalChainMap {
-    public func asChainMap<R>(_ type: R.Type) -> ChainMap1<LinearCombination<Complex.Cell, R>, LinearCombination<Complex.Cell, R>> {
+    public func asChainMap<R: Ring>(_ type: R.Type) -> ChainMap<Complex.AlgebraicComplex<R>, Complex.AlgebraicComplex<R>> {
         ChainMap(degree: 0) { _ in
             ModuleHom.linearlyExtend {
                 (cell: Complex.Cell) in
                 let t = self(cell)
-                return (cell.dim == t.dim) ? .wrap(t) : .zero
+                return (cell.dim == t.dim) ? .init(t) : .zero
             }
         }
     }

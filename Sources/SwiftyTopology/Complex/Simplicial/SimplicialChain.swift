@@ -8,7 +8,7 @@
 
 import SwiftyMath
 
-public typealias SimplicialChain<R: Ring> = LinearCombination<Simplex, R>
+public typealias SimplicialChain<R: Ring> = LinearCombination<R, Simplex>
 
 extension SimplicialChain where Generator == Simplex {
     public func boundary() -> SimplicialChain<R> {

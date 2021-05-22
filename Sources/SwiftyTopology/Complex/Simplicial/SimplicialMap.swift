@@ -57,4 +57,12 @@ public struct SimplicialMap: TopologicalChainMap {
     public static func projection(_ i: Int) -> SimplicialMap {
         SimplicialMap { (v: Vertex) in v.components[i] }
     }
+    
+    public static func == (f: SimplicialMap, g: SimplicialMap) -> Bool {
+        fatalError()
+    }
+    
+    public var description: String {
+        ""
+    }
 }

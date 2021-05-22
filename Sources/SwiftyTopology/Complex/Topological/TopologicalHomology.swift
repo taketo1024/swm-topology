@@ -8,9 +8,10 @@
 import SwiftyMath
 import SwiftyHomology
 
-public struct TopologicalHomology<Complex: TopologicalComplex, R: EuclideanRing>: GridWrapper {
-    public typealias GridDim = _1
-    public typealias Grid = ModuleGrid1<LinearCombination<Complex.Cell, R>>
+public struct TopologicalHomology<Complex: TopologicalComplex, R: EuclideanRing>: GradedModuleStructureType {
+    public typealias Index = Int
+    public typealias BaseModule = LinearCombination<R, Complex.Cell>
+    public typealias Grid = ModuleGrid1<BaseModule>
     public typealias Object = Grid.Object
 
     public let complex: Complex
@@ -18,20 +19,25 @@ public struct TopologicalHomology<Complex: TopologicalComplex, R: EuclideanRing>
     
     public init(_ K: Complex, relativeTo L: Complex? = nil, withGenerators: Bool = false, withVectorizer: Bool = false) {
         let C = K.asChainComplex(relativeTo: L, over: R.self)
-        let H = C.homology(withGenerators: withGenerators, withVectorizer: withVectorizer)
+        let H = C.homology()
         
         self.complex = K
         self.grid = H
     }
     
-    public func shifted(_ shift: GridCoords<_1>) -> Self {
+    public subscript(i: Int) -> Grid.Object {
+        grid[i]
+    }
+    
+    public func shifted(_ shift: Int) -> Self {
         fatalError()
     }
 }
 
-public struct TopologicalCohomology<Complex: TopologicalComplex, R: EuclideanRing>: GridWrapper {
-    public typealias GridDim = _1
-    public typealias Grid = ModuleGrid1<Dual<LinearCombination<Complex.Cell, R>>>
+public struct TopologicalCohomology<Complex: TopologicalComplex, R: EuclideanRing>: GradedModuleStructureType {
+    public typealias BaseModule = DualModule<LinearCombination<R, Complex.Cell>>
+    public typealias Index = Int
+    public typealias Grid = ModuleGrid1<BaseModule>
     public typealias Object = Grid.Object
 
     public let complex: Complex
@@ -39,13 +45,17 @@ public struct TopologicalCohomology<Complex: TopologicalComplex, R: EuclideanRin
     
     public init(_ K: Complex, relativeTo L: Complex? = nil, withGenerators: Bool = false, withVectorizer: Bool = false) {
         let C = K.asChainComplex(relativeTo: L, over: R.self).dual
-        let H = C.homology(withGenerators: withGenerators, withVectorizer: withVectorizer)
+        let H = C.homology()
         
         self.complex = K
         self.grid = H
     }
     
-    public func shifted(_ shift: GridCoords<_1>) -> Self {
+    public subscript(i: Int) -> Grid.Object {
+        grid[i]
+    }
+    
+    public func shifted(_ shift: Int) -> Self {
         fatalError()
     }
 }

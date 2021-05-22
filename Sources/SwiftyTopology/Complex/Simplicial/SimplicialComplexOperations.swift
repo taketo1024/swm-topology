@@ -44,7 +44,7 @@ extension SimplicialComplex {
     }
     
     public func identifyVertices(_ pairs: [(Vertex, Vertex)]) -> SimplicialComplex {
-        let table = Dictionary(pairs: pairs)
+        let table = Dictionary(pairs)
         return identifyVertices(table)
     }
     

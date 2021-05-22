@@ -8,9 +8,9 @@
 
 import SwiftyMath
 
-public protocol TopologicalCell: SetType, FreeModuleGenerator {
+public protocol TopologicalCell: LinearCombinationGenerator {
     var dim: Int { get }
-    func boundary<R: Ring>(_ type: R.Type) -> LinearCombination<Self, R>
+    func boundary<R: Ring>(_ type: R.Type) -> LinearCombination<R, Self>
 }
 
 extension TopologicalCell {

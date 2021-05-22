@@ -17,14 +17,13 @@ public struct SimplicialComplex: TopologicalComplex {
     
     public let vertices: [Vertex]
     public let maximalCells: [Simplex]
-    private let allCells: [Cache<[Simplex]>]
+    private let allCells: Cache<Int, [Simplex]> = .empty
     
     public init<S: Sequence>(name: String? = nil, cells: S, filterMaximalCells: Bool = false) where S.Iterator.Element == Simplex {
         self.name = name ?? "_"
         self.maximalCells = filterMaximalCells ? SimplicialComplex.filterMaximalCells(cells) : cells.toArray()
         self.vertices = maximalCells.reduce(Set<Vertex>()){ (set, s) in set.union(s.vertices) }.sorted()
         self.dim = maximalCells.reduce(-1){ (res, s) in max(res, s.dim) }
-        self.allCells = (0 ..< dim + 1).map{ _ in Cache() }
     }
     
     public init(name: String? = nil, cells: Simplex...) {
@@ -52,7 +51,7 @@ public struct SimplicialComplex: TopologicalComplex {
             return []
         }
         
-        if let cells = allCells[i].value {
+        if let cells = allCells[i] {
             return cells
         }
             
@@ -60,7 +59,7 @@ public struct SimplicialComplex: TopologicalComplex {
             s.subsimplicices(dim: i)
         }.unique()
         
-        allCells[i].value = cells
+        allCells[i] = cells
         return cells
     }
     

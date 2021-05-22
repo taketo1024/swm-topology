@@ -12,6 +12,7 @@ import SwiftyHomology
 public protocol TopologicalComplex: CustomStringConvertible where Map.Complex == Self {
     associatedtype Cell: TopologicalCell
     associatedtype Map: TopologicalChainMap
+    typealias AlgebraicComplex<R: Ring> = ChainComplex1<LinearCombination<R, Cell>>
     
     var name: String { get }
     var dim: Int { get }
@@ -22,7 +23,7 @@ public protocol TopologicalComplex: CustomStringConvertible where Map.Complex ==
     func cells(ofDim: Int) -> [Cell]
     func skeleton(_ dim: Int) -> Self
     
-    func boundaryMap<R: Ring>(_ i: Int, _ type: R.Type) -> ModuleEnd<LinearCombination<Cell, R>>
+    func boundaryMap<R: Ring>(_ i: Int, _ type: R.Type) -> ModuleEnd<LinearCombination<R, Cell>>
 }
 
 extension TopologicalComplex {
@@ -42,7 +43,7 @@ extension TopologicalComplex {
         validDims.flatMap{ cells(ofDim: $0) }
     }
     
-    public func boundaryMap<R: Ring>(_ i: Int, _ type: R.Type) -> ModuleEnd<LinearCombination<Cell, R>> {
+    public func boundaryMap<R: Ring>(_ i: Int, _ type: R.Type) -> ModuleEnd<LinearCombination<R, Cell>> {
         ModuleHom.linearlyExtend { s in
             (s.dim == i) ? s.boundary(R.self) : .zero
         }
@@ -82,15 +83,15 @@ extension TopologicalComplex {
         orientationCycle(relativeTo: L, over: R.self) != nil
     }
     
-    public var orientationCycle: LinearCombination<Cell, 𝐙>? {
+    public var orientationCycle: LinearCombination<𝐙, Cell>? {
         orientationCycle(relativeTo: nil, over: 𝐙.self)
     }
     
-    public func orientationCycle(relativeTo L: Self) -> LinearCombination<Cell, 𝐙>? {
+    public func orientationCycle(relativeTo L: Self) -> LinearCombination<𝐙, Cell>? {
         orientationCycle(relativeTo: L, over: 𝐙.self)
     }
     
-    public func orientationCycle<R: EuclideanRing>(relativeTo L: Self? = nil, over: R.Type) -> LinearCombination<Cell, R>? {
+    public func orientationCycle<R: EuclideanRing>(relativeTo L: Self? = nil, over: R.Type) -> LinearCombination<R, Cell>? {
         let K = self
         let H = TopologicalHomology<Self, R>(K, relativeTo: L, withGenerators: true)
         let top = H[dim]
@@ -103,18 +104,17 @@ extension TopologicalComplex {
 }
 
 extension TopologicalComplex {
-    public func asChainComplex<R: Ring>(relativeTo L: Self? = nil, over: R.Type) -> ChainComplex1<LinearCombination<Cell, R>> {
+    public func asChainComplex<R: Ring>(relativeTo L: Self? = nil, over: R.Type) -> AlgebraicComplex<R> {
         ChainComplex1(
-            type: .descending,
-            support: 0 ... dim,
-            sequence: { i in
+            grid: { i in
                 let cells = (L == nil)
                     ? self.cells(ofDim: i)
                     : self.cells(ofDim: i).subtract(L!.cells(ofDim: i))
                 
-                return self.validDims.contains(i) ? ModuleObject( basis: cells ) : .zeroModule
+                return self.validDims.contains(i) ? ModuleStructure( rawGenerators: cells ) : .zeroModule
                 
             },
+            degree: -1,
             differential: { i in
                 ModuleHom.linearlyExtend{ cell in cell.boundary(R.self) }
             }

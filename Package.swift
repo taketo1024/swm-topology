@@ -14,12 +14,12 @@ let package = Package(
         .package(
 			name: "SwiftyMath",
 			url: "https://github.com/taketo1024/SwiftyMath.git",
-			from: "2.1.0"
+			from: "3.0.0"
 		),
         .package(
 			name: "SwiftyHomology",
 			url: "https://github.com/taketo1024/SwiftyMath-homology.git",
-			from: "2.1.0"
+			from: "3.0.0"
 		),
     ],
     targets: [
@@ -30,9 +30,5 @@ let package = Package(
         .testTarget(
             name: "SwiftyTopologyTests",
             dependencies: ["SwiftyTopology"]),
-        .target(
-            name: "SwiftyTopology-Sample",
-            dependencies: ["SwiftyMath", "SwiftyHomology", "SwiftyTopology"],
-			path: "Sources/Sample"),
     ]
 )
