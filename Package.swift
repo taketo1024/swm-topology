@@ -7,28 +7,31 @@ let package = Package(
     name: "SwiftyTopology",
     products: [
         .library(
-            name: "SwiftyTopology",
-            targets: ["SwiftyTopology"]),
+            name: "SwmTopology",
+            targets: ["SwmTopology"]
+		),
     ],
     dependencies: [
         .package(
-			name: "SwiftyMath",
-			url: "https://github.com/taketo1024/SwiftyMath.git",
-			from: "3.0.0"
+			url: "https://github.com/taketo1024/swm-core.git",
+			from: "1.0.0"
 		),
         .package(
-			name: "SwiftyHomology",
-			url: "https://github.com/taketo1024/SwiftyMath-homology.git",
-			from: "3.0.0"
+			url: "https://github.com/taketo1024/swm-homology.git",
+			from: "1.0.0"
 		),
     ],
     targets: [
         .target(
-            name: "SwiftyTopology",
-            dependencies: ["SwiftyMath", "SwiftyHomology"],
-			path: "Sources/SwiftyTopology"),
+            name: "SwmTopology",
+            dependencies: [
+                .product(name: "SwmCore", package: "swm-core"),
+                .product(name: "SwmHomology", package: "swm-homology"),
+			]
+		),
         .testTarget(
-            name: "SwiftyTopologyTests",
-            dependencies: ["SwiftyTopology"]),
+            name: "SwmTopologyTests",
+            dependencies: ["SwmTopology"]
+		),
     ]
 )

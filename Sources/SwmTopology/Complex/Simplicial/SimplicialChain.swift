@@ -6,7 +6,7 @@
 //  Copyright © 2018年 Taketo Sano. All rights reserved.
 //
 
-import SwiftyMath
+import SwmCore
 
 public typealias SimplicialChain<R: Ring> = LinearCombination<R, Simplex>
 

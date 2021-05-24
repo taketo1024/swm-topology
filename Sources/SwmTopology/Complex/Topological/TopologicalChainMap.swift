@@ -6,8 +6,8 @@
 //  Copyright © 2018年 Taketo Sano. All rights reserved.
 //
 
-import SwiftyMath
-import SwiftyHomology
+import SwmCore
+import SwmHomology
 
 public protocol TopologicalChainMap: MapType where Complex.Map == Self, Domain == Complex.Cell, Codomain == Complex.Cell {
     associatedtype Complex: TopologicalComplex

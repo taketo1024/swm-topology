@@ -6,7 +6,7 @@
 //  Copyright © 2017年 Taketo Sano. All rights reserved.
 //
 
-import SwiftyMath
+import SwmCore
 
 private var list: [Vertex] = []
 private var productList: [String: Vertex] = [:]

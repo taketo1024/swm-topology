@@ -5,8 +5,8 @@
 //  Created by Taketo Sano on 2019/10/25.
 //
 
-import SwiftyMath
-import SwiftyHomology
+import SwmCore
+import SwmHomology
 
 public struct TopologicalHomology<Complex: TopologicalComplex, R: EuclideanRing>: GradedModuleStructureType {
     public typealias Index = Int

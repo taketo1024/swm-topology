@@ -6,7 +6,7 @@
 //  Copyright © 2017年 Taketo Sano. All rights reserved.
 //
 
-import SwiftyMath
+import SwmCore
 
 public struct Simplex: MathSet, TopologicalCell, Comparable {
     public let vertices: [Vertex]          // vertices in input order.

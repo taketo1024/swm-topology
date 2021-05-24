@@ -1,6 +1,6 @@
-import SwiftyMath
-import SwiftyHomology
-import SwiftyTopology
+import SwmCore
+import SwmHomology
+import SwmTopology
 
 typealias R = 𝐙
 

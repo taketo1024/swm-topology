@@ -7,9 +7,9 @@
 //
 
 import XCTest
-import SwiftyMath
-import SwiftyHomology
-@testable import SwiftyTopology
+import SwmCore
+import SwmHomology
+@testable import SwmTopology
 
 class SimplicialHomologyTests: XCTestCase {
     

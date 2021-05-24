@@ -6,8 +6,8 @@
 //  Copyright © 2017年 Taketo Sano. All rights reserved.
 //
 
-import SwiftyMath
-import SwiftyHomology
+import SwmCore
+import SwmHomology
 
 public protocol TopologicalComplex: CustomStringConvertible where Map.Complex == Self {
     associatedtype Cell: TopologicalCell
