@@ -105,18 +105,42 @@ extension TopologicalComplex {
 
 extension TopologicalComplex {
     public func asChainComplex<R: Ring>(relativeTo L: Self? = nil, over: R.Type) -> AlgebraicComplex<R> {
+        if let L = L {
+            return _asChainComplex(relativeTo: L, over: over)
+        } else {
+            return _asChainComplex(over: over)
+        }
+    }
+    
+    private func _asChainComplex<R: Ring>(over: R.Type) -> AlgebraicComplex<R> {
         ChainComplex1(
             grid: { i in
-                let cells = (L == nil)
-                    ? self.cells(ofDim: i)
-                    : self.cells(ofDim: i).subtract(L!.cells(ofDim: i))
-                
-                return self.validDims.contains(i) ? ModuleStructure( rawGenerators: cells ) : .zeroModule
-                
+                .init(rawGenerators: self.cells(ofDim: i))
             },
             degree: -1,
             differential: { i in
-                ModuleHom.linearlyExtend{ cell in cell.boundary(R.self) }
+                ModuleHom.linearlyExtend{ cell in
+                    cell.boundary(R.self)
+                }
+            }
+        )
+    }
+
+    private func _asChainComplex<R: Ring>(relativeTo L: Self, over: R.Type) -> AlgebraicComplex<R> {
+        func subCells(_ i: Int) -> Set<Cell> {
+            Set(L.cells(ofDim: i))
+        }
+        return ChainComplex1(
+            grid: { i in
+                .init(rawGenerators: self.cells(ofDim: i).subtract(subCells(i)))
+            },
+            degree: -1,
+            differential: { i in
+                ModuleHom.linearlyExtend{ cell in
+                    cell.boundary(R.self).filter { (c, _) in
+                        !subCells(i - 1).contains(c)
+                    }
+                }
             }
         )
     }
