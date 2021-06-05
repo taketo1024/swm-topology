@@ -7,6 +7,7 @@
 //
 
 import SwmCore
+import SwmHomology
 
 public struct SimplicialComplex: TopologicalComplex {
     public typealias Cell = Simplex
@@ -84,5 +85,5 @@ public struct SimplicialComplex: TopologicalComplex {
     }
 }
 
-public typealias SimplicialHomology<R: EuclideanRing> = TopologicalHomology<SimplicialComplex, R>
-public typealias SimplicialCohomology<R: EuclideanRing> = TopologicalCohomology<SimplicialComplex, R>
+public typealias SimplicialHomology<R: HomologyCalculatable> = TopologicalHomology<SimplicialComplex, R>
+public typealias SimplicialCohomology<R: HomologyCalculatable> = TopologicalCohomology<SimplicialComplex, R>

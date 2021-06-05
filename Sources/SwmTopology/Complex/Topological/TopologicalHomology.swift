@@ -8,7 +8,7 @@
 import SwmCore
 import SwmHomology
 
-public struct TopologicalHomology<Complex: TopologicalComplex, R: EuclideanRing>: GradedModuleStructureType {
+public struct TopologicalHomology<Complex: TopologicalComplex, R: HomologyCalculatable>: GradedModuleStructureType {
     public typealias Index = Int
     public typealias BaseModule = LinearCombination<R, Complex.Cell>
     public typealias Grid = ModuleGrid1<BaseModule>
@@ -34,7 +34,7 @@ public struct TopologicalHomology<Complex: TopologicalComplex, R: EuclideanRing>
     }
 }
 
-public struct TopologicalCohomology<Complex: TopologicalComplex, R: EuclideanRing>: GradedModuleStructureType {
+public struct TopologicalCohomology<Complex: TopologicalComplex, R: HomologyCalculatable>: GradedModuleStructureType {
     public typealias BaseModule = DualModule<LinearCombination<R, Complex.Cell>>
     public typealias Index = Int
     public typealias Grid = ModuleGrid1<BaseModule>

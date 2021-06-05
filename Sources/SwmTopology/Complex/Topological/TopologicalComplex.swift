@@ -79,7 +79,7 @@ extension TopologicalComplex {
         orientationCycle(relativeTo: L) != nil
     }
     
-    public func isOrientable<R: EuclideanRing>(relativeTo L: Self?, over: R.Type) -> Bool {
+    public func isOrientable<R: HomologyCalculatable>(relativeTo L: Self?, over: R.Type) -> Bool {
         orientationCycle(relativeTo: L, over: R.self) != nil
     }
     
@@ -91,7 +91,7 @@ extension TopologicalComplex {
         orientationCycle(relativeTo: L, over: 𝐙.self)
     }
     
-    public func orientationCycle<R: EuclideanRing>(relativeTo L: Self? = nil, over: R.Type) -> LinearCombination<R, Cell>? {
+    public func orientationCycle<R: HomologyCalculatable>(relativeTo L: Self? = nil, over: R.Type) -> LinearCombination<R, Cell>? {
         let K = self
         let H = TopologicalHomology<Self, R>(K, relativeTo: L, withGenerators: true)
         let top = H[dim]
