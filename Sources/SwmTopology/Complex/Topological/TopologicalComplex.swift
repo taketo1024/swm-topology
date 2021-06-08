@@ -114,6 +114,7 @@ extension TopologicalComplex {
     
     private func _asChainComplex<R: Ring>(over: R.Type) -> AlgebraicComplex<R> {
         ChainComplex1(
+            support: validDims.reversed(),
             grid: { i in
                 .init(rawGenerators: self.cells(ofDim: i))
             },

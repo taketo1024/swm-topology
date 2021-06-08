@@ -29,8 +29,8 @@ public struct TopologicalHomology<Complex: TopologicalComplex, R: HomologyCalcul
         grid[i]
     }
     
-    public func shifted(_ shift: Int) -> Self {
-        fatalError()
+    public var support: [Int] {
+        grid.support
     }
 }
 
@@ -55,7 +55,7 @@ public struct TopologicalCohomology<Complex: TopologicalComplex, R: HomologyCalc
         grid[i]
     }
     
-    public func shifted(_ shift: Int) -> Self {
-        fatalError()
+    public var support: [Int] {
+        grid.support
     }
 }

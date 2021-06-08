@@ -42,7 +42,7 @@ public struct SimplicialComplex: TopologicalComplex {
         
         let cells = maximalCells.parallelFlatMap { s -> [Simplex] in
             (s.dim > i) ? s.subsimplicices(dim: i) : [s]
-        }.unique()
+        }.uniqued()
         
         return SimplicialComplex(name: "\(self.name)_(\(i))", cells: cells)
     }
@@ -58,9 +58,10 @@ public struct SimplicialComplex: TopologicalComplex {
             
         let cells = maximalCells.parallelFlatMap { s -> [Simplex] in
             s.subsimplicices(dim: i)
-        }.unique()
+        }.uniqued().toArray()
         
         allCells[i] = cells
+        
         return cells
     }
     

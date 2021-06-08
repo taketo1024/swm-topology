@@ -17,7 +17,7 @@ public struct SimplicialMap: TopologicalChainMap {
     
     public init(_ f: @escaping (Vertex) -> Vertex) {
         self.init() { (s: Simplex) in
-            Simplex(s.vertices.map(f).unique())
+            Simplex(s.vertices.map(f).uniqued())
         }
     }
     
@@ -30,7 +30,7 @@ public struct SimplicialMap: TopologicalChainMap {
     }
     
     public func image(of K: SimplicialComplex) -> SimplicialComplex {
-        let cells = K.maximalCells.map { s in self(s) }.unique()
+        let cells = K.maximalCells.map { s in self(s) }.uniqued()
         return SimplicialComplex(cells: cells, filterMaximalCells: true)
     }
     

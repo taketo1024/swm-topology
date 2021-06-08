@@ -54,7 +54,7 @@ extension SimplicialComplex {
     }
     
     public static func +(K1: SimplicialComplex, K2: SimplicialComplex) -> SimplicialComplex {
-        let cells = (K1.maximalCells + K2.maximalCells).unique()
+        let cells = (K1.maximalCells + K2.maximalCells).uniqued()
         return SimplicialComplex(name: "\(K1) + \(K2)", cells: cells)
     }
     
@@ -116,7 +116,7 @@ extension SimplicialComplex {
         
         // generate array of (n + m)-dim product simplices by the zig-zag method.
         
-        let combis = (0 ..< n + m).choose(n)
+        let combis = (0 ..< n + m).combinations(ofCount: n)
         let vPairs = combis.map{ c -> [(Vertex, Vertex)] in
             let start = [(s.vertices[0], t.vertices[0])]
             var (i, j) = (0, 0)
@@ -158,7 +158,7 @@ extension SimplicialComplex {
                 let x = s ∩ t
                 return (x.dim >= 0) ? x : nil
             }
-        }.unique()
+        }.uniqued()
         
         return SimplicialComplex(name: "\(K1.name) ∩ \(K2.name)", cells: cells, filterMaximalCells: true)
     }

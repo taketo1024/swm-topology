@@ -66,7 +66,7 @@ public struct Simplex: MathSet, TopologicalCell, Comparable {
         } else if k == 0 {
             return vertices.map{ v in Simplex(v) }
         } else {
-            return (0 ... dim).choose(k + 1).map { I in Simplex(vertexSet: vertices, indices: I) }
+            return (0 ... dim).combinations(ofCount: k + 1).map { I in Simplex(vertexSet: vertices, indices: I) }
         }
     }
     
