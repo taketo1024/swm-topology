@@ -8,11 +8,10 @@
 import SwmCore
 import SwmHomology
 
-public struct TopologicalHomology<Complex: TopologicalComplex, R: HomologyCalculatable>: GradedModuleStructureType {
+public struct TopologicalHomology<Complex: TopologicalComplex, R: HomologyCalculatable>: IndexedModuleStructureType {
     public typealias Index = Int
     public typealias BaseModule = LinearCombination<R, Complex.Cell>
-    public typealias Grid = ModuleGrid1<BaseModule>
-    public typealias Object = Grid.Object
+    public typealias Grid = IndexedModuleStructure<Index, BaseModule>
 
     public let complex: Complex
     public let grid: Grid
@@ -34,11 +33,10 @@ public struct TopologicalHomology<Complex: TopologicalComplex, R: HomologyCalcul
     }
 }
 
-public struct TopologicalCohomology<Complex: TopologicalComplex, R: HomologyCalculatable>: GradedModuleStructureType {
+public struct TopologicalCohomology<Complex: TopologicalComplex, R: HomologyCalculatable>: IndexedModuleStructureType {
     public typealias BaseModule = DualModule<LinearCombination<R, Complex.Cell>>
     public typealias Index = Int
-    public typealias Grid = ModuleGrid1<BaseModule>
-    public typealias Object = Grid.Object
+    public typealias Grid = IndexedModuleStructure<Index, BaseModule>
 
     public let complex: Complex
     public let grid: Grid
