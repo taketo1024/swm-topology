@@ -14,12 +14,12 @@ let package = Package(
     dependencies: [
         .package(
 			url: "https://github.com/taketo1024/swm-core.git",
-			from: "1.2.2"
+			from: "1.2.6"
 //            path: "../swm-core/"
 		),
         .package(
 			url: "https://github.com/taketo1024/swm-homology.git",
-			from: "1.2.1"
+			from: "1.3.0"
 //            path: "../swm-homology/"
 		),
     ],
